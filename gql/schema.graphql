@@ -1,0 +1,38 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Query {
+  getPizzaOrder(id: String!): PizzaOrder
+}
+
+
+type Mutation {
+  addPizzaOrder(input: PizzaOrderInput): PizzaOrder
+  updatePizzaOrderStatus(id: String!, status: String): PizzaOrder
+}
+
+type Subscription {
+  onAddPizzaOrder(orderId: String): PizzaOrder
+  @aws_subscribe(mutations: ["updatePizzaOrderStatus"])
+}
+
+input PizzaOrderInput {
+  ingredients: String
+  crust: String
+}
+
+type PizzaOrder {
+  id: String
+  ingredients: String
+  crust: String
+  createdTime: Int
+  status: String
+}
+
+type Ingredient {
+  name: String
+  amount: Int
+}
