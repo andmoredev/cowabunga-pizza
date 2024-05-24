@@ -12,7 +12,10 @@ projects:
         generatedFileName: src/API.ts
         docsFilePath: src/graphql
         region: us-east-1
-        apiId: 5g5qf734yvdrxmz7st7qjyd444
+        apiId: kq5dxfe5wjaxhln35abmz5rp7a
         frontend: javascript
         framework: react
         maxDepth: 2
+extensions:
+  amplify:
+    version: 3

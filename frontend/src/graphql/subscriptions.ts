@@ -8,8 +8,8 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onAddPizzaOrder = /* GraphQL */ `subscription OnAddPizzaOrder($id: String) {
-  onAddPizzaOrder(id: $id) {
+export const onPizzaOrderStatusChange = /* GraphQL */ `subscription OnPizzaOrderStatusChange($id: String) {
+  onPizzaOrderStatusChange(id: $id) {
     id
     ingredients
     crust
@@ -19,6 +19,6 @@ export const onAddPizzaOrder = /* GraphQL */ `subscription OnAddPizzaOrder($id: 
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnAddPizzaOrderSubscriptionVariables,
-  APITypes.OnAddPizzaOrderSubscription
+  APITypes.OnPizzaOrderStatusChangeSubscriptionVariables,
+  APITypes.OnPizzaOrderStatusChangeSubscription
 >;

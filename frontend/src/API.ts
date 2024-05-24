@@ -62,12 +62,12 @@ export type GetPizzaOrderQuery = {
   } | null,
 };
 
-export type OnAddPizzaOrderSubscriptionVariables = {
+export type OnPizzaOrderStatusChangeSubscriptionVariables = {
   id?: string | null,
 };
 
-export type OnAddPizzaOrderSubscription = {
-  onAddPizzaOrder?:  {
+export type OnPizzaOrderStatusChangeSubscription = {
+  onPizzaOrderStatusChange?:  {
     __typename: "PizzaOrder",
     id?: string | null,
     ingredients?: string | null,
