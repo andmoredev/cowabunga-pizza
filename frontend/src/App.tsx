@@ -28,9 +28,7 @@ function App() {
 
 
   const handleSubmit = async (e) => {
-//send api request
     e.preventDefault();
-    console.log('hey working')
     const data = new FormData(e.target);
     const value = Object.fromEntries(data.entries());
     console.log(value)
@@ -51,10 +49,6 @@ function App() {
       });
       console.log('updated', createdOrder)
     }
-
-
-
-
   }
 
   return (
@@ -65,9 +59,6 @@ function App() {
         <input type="text" name='id' />
         <button>Submit</button>
       </form>
-
-
-
     </>
   )
 }

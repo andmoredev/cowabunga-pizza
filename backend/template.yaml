@@ -1,0 +1,84 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  cowabunga-pizza
+
+  Sample SAM Template for cowabunga-pizza
+
+
+Resources:
+  PostsTable:
+    Type: AWS::Serverless::SimpleTable
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+
+  CowabungaPizzaGraphQLApi:
+    Type: AWS::Serverless::GraphQLApi
+    Properties:
+      SchemaUri: ./gql/schema.graphql
+      Auth:
+        Type: API_KEY
+      ApiKeys:
+        MyApiKey:
+          Description: my api key
+      DataSources:
+        DynamoDb:
+          Posts:
+            TableName: !Ref PostsTable
+            TableArn: !GetAtt PostsTable.Arn
+      Functions:
+        preProcessPizzaOrder:
+          Runtime:
+            Name: APPSYNC_JS
+            Version: 1.0.0
+          DataSource: NONE
+          CodeUri: ./gql/preProcessPizzaOrder.js
+        createPizzaOrder:
+          Runtime:
+            Name: APPSYNC_JS
+            Version: 1.0.0
+          DataSource: Posts
+          CodeUri: ./gql/createPizzaOrder.js
+        getPizzaOrder:
+          Runtime:
+            Name: APPSYNC_JS
+            Version: 1.0.0
+          DataSource: Posts
+          CodeUri: ./gql/getPizzaOrder.js
+        updatePizzaOrderStatus:
+          Runtime:
+            Name: APPSYNC_JS
+            Version: 1.0.0
+          DataSource: Posts
+          CodeUri: ./gql/updatePizzaOrderStatus.js
+
+      Resolvers:
+        Mutation:
+          addPizzaOrder:
+            Runtime:
+              Name: APPSYNC_JS
+              Version: 1.0.0
+            Pipeline:
+            - preProcessPizzaOrder
+            - createPizzaOrder
+          updatePizzaOrderStatus:
+            Runtime:
+              Name: APPSYNC_JS
+              Version: 1.0.0
+            Pipeline:
+            - updatePizzaOrderStatus
+        Query:
+          getPizzaOrder:
+            Runtime:
+              Name: APPSYNC_JS
+              Version: 1.0.0
+            Pipeline:
+            - getPizzaOrder
+
+
+Outputs:
+  CowabungaPizzaGraphQLApiUrl:
+    Value: !GetAtt CowabungaPizzaGraphQLApi.GraphQLUrl
+  CowabungaPizzaGraphQLApiKey:
+    Value: !GetAtt CowabungaPizzaGraphQLApiMyApiKey.ApiKey
+
