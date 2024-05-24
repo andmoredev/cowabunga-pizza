@@ -1,12 +1,15 @@
 import { util } from "@aws-appsync/utils";
+import * as ddb from '@aws-appsync/utils/dynamodb'
 
 export function request(ctx) {
-  const { key, values } = ctx.prev.result;
-  return {
-    operation: "PutItem",
-    key: util.dynamodb.toMapValues(key),
-    attributeValues: util.dynamodb.toMapValues(values),
-  };
+  console.log('ctx.args', ctx.args);
+  const { id, status } = ctx.args;
+  return ddb.update({
+    key: { id: id },
+    update: {
+      status: ddb.operations.replace(status)
+    }
+  })
 }
 
 export function response(ctx) {

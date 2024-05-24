@@ -1,10 +1,8 @@
-import { util } from "@aws-appsync/utils";
-
 export function request(ctx) {
-  const { ...values } = ctx.args.input;
-  return { payload: { key: { id: values.id }, values: values } };
+  console.log('ctx.args', ctx.args);
+  return {};
 }
 
 export function response(ctx) {
-  return ctx.result;
+  return ctx.prev.result;
 }
