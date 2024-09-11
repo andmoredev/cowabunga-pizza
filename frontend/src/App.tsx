@@ -31,7 +31,7 @@ function App() {
         }
       });
       console.log('updated', updatedOrder)
-    }else {
+    } else {
 
       const createdOrder =await client.graphql({
         query: addPizzaOrder,
